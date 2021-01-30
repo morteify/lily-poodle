@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "homepage": "https://morteify.github.io/lily-poodle",
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.0",
     "antd": "^4.9.4",
+    "gh-pages": "^3.1.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",
@@ -68,7 +70,9 @@
     "start": "webpack serve --config config/webpack.config.ts --env env=dev",
     "build": "webpack --config config/webpack.config.ts --env env=prod",
     "test": "jest",
-    "postinstall": "node ./node_modules/husky/lib/installer/bin.js install"
+    "postinstall": "node ./node_modules/husky/lib/installer/bin.js install",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "author": "",
   "license": "ISC",
