@@ -72,7 +72,7 @@
     "test": "jest",
     "postinstall": "node ./node_modules/husky/lib/installer/bin.js install",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "author": "",
   "license": "ISC",
