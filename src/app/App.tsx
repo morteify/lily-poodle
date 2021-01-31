@@ -2,12 +2,14 @@ import React, { Suspense } from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { Spin } from "antd";
 import { MainLayout } from "../common/mainLayout/components";
+import { InitialScreen } from "../features/initial/components";
+import StrategyTable from "../features/ranking/components/StrategyTable";
 
 const App: React.FC = () => (
   <Suspense fallback={<Spin tip="Loading..." />}>
     <Router basename="/">
       <Switch>
-        <Route path="/" component={MainLayout} />
+        <Route path="/" component={StrategyTable} />
         <Redirect exact to="/" />
       </Switch>
     </Router>

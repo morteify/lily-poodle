@@ -4,6 +4,7 @@ import { Container, CenterSection, Title } from "./styles";
 import { initialActions } from "../../slices";
 import { Spin } from "antd";
 import { RootState } from "../../../../app/types";
+import { MainLayout } from "../../../../common/mainLayout/components";
 
 const InitialScreen: React.FC = () => {
   const dispatch = useDispatch();
@@ -15,13 +16,15 @@ const InitialScreen: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <Container>
-      <CenterSection>
-        <Spin tip="Loading..." spinning={isRandomFactFetching}>
-          <Title data-testid="random-fact">{randomFactText}</Title>
-        </Spin>
-      </CenterSection>
-    </Container>
+    <MainLayout>
+      <Container>
+        <CenterSection>
+          <Spin tip="Loading..." spinning={isRandomFactFetching}>
+            <Title data-testid="random-fact">{randomFactText}</Title>
+          </Spin>
+        </CenterSection>
+      </Container>
+    </MainLayout>
   );
 };
 
