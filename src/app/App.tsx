@@ -7,8 +7,8 @@ const App: React.FC = () => (
   <Suspense fallback={<Spin tip="Loading..." />}>
     <Router basename="/">
       <Switch>
-        <Route path="/home" component={MainLayout} />
-        <Redirect exact to="/home" />
+        <Route path="/" component={MainLayout} />
+        <Redirect exact to="/" />
       </Switch>
     </Router>
   </Suspense>
