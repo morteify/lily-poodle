@@ -8,6 +8,7 @@ import { rankingActions } from "../../slices";
 const StrategyTable: React.FC = () => {
   const dispatch = useDispatch();
   const quotes = useSelector((state: RootState) => state.ranking.quotes);
+  const isFetchingQuotes = useSelector((state: RootState) => state.ranking.isRankingFetching);
 
   useEffect(() => {
     dispatch(rankingActions.fetchRankingStart());
@@ -66,7 +67,11 @@ const StrategyTable: React.FC = () => {
     },
   ];
 
-  return <MainLayout>{quotes && <Table columns={columns} dataSource={quotes}></Table>}</MainLayout>;
+  return (
+    <MainLayout>
+      <Table columns={columns} dataSource={quotes ?? undefined} loading={isFetchingQuotes}></Table>
+    </MainLayout>
+  );
 };
 
 export default StrategyTable;
