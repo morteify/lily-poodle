@@ -8,8 +8,8 @@ export const SiteContent = styled.div`
   height: 100%;
   background: rgba(255, 255, 255);
   margin: 16px;
-  padding: 24;
-  min-height: 360;
+  padding: 24px;
+  min-height: 360px;
 `;
 
 export const SiteHeader = styled(Header)`
@@ -19,6 +19,7 @@ export const SiteHeader = styled(Header)`
 
 export const ContentContainer = styled(Content)`
   margin: 24px 16px 0;
+  height: 100%;
 `;
 
 export const SiteFooter = styled(Footer)`
