@@ -14,7 +14,7 @@ import {
 } from "./styles";
 
 const MainLayout: React.FC = ({ children }) => {
-  const [siderCollapsed, setSiderCollapsed] = useState(true);
+  const [siderCollapsed, setSiderCollapsed] = useState(false);
 
   const toggleSider = () => {
     setSiderCollapsed(!siderCollapsed);
@@ -27,7 +27,7 @@ const MainLayout: React.FC = ({ children }) => {
 
   return (
     <SiteLayout>
-      <ContentSider collapsed={siderCollapsed}>
+      <ContentSider collapsible collapsed={siderCollapsed} data-testid="main-layout-sider">
         <Logo />
         <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
           <Menu.Item key="1" icon={<UserOutlined />}>
@@ -47,7 +47,7 @@ const MainLayout: React.FC = ({ children }) => {
       <Layout>
         <SiteHeader>{getTriggerButton(siderCollapsed)}</SiteHeader>
         <ContentContainer>
-          <SiteContent>{children}</SiteContent>
+          <SiteContent data-testid="main-layout-site-content">{children}</SiteContent>
         </ContentContainer>
         <SiteFooter>Lily Poodle ©2021 Wróbel & Węglarz</SiteFooter>
       </Layout>
