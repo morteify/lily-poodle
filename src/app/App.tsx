@@ -1,14 +1,17 @@
 import React, { Suspense } from "react";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { Spin } from "antd";
-
-const InitialScreen = React.lazy(() => import("../features/initial/components/InitialScreen"));
+import { MainLayout } from "../common/mainLayout/components";
 
 const App: React.FC = () => (
-  <div>
-    <Suspense fallback={<Spin tip="Loading..." />}>
-      <InitialScreen />
-    </Suspense>
-  </div>
+  <Suspense fallback={<Spin tip="Loading..." />}>
+    <Router basename="/">
+      <Switch>
+        <Route path="/home" component={MainLayout} />
+        <Redirect exact to="/home" />
+      </Switch>
+    </Router>
+  </Suspense>
 );
 
 export default App;
