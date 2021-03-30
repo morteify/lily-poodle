@@ -1,4 +1,12 @@
-on: push
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AZURE_WEBAPP_NAME: "lily-poodle"
+  AZURE_WEBAPP_PACKAGE_PATH: "dist" # set this to the path to your web app project, defaults to the repository root
+  NODE_VERSION: "14" # set this to the node version to use
 
 jobs:
   build-and-deploy:
@@ -8,10 +16,11 @@ jobs:
       - name: "Checkout Github Action"
         uses: actions/checkout@master
 
-      - name: Setup Node 10.x
+      - name: Use Node ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v1
         with:
-          node-version: "10.x"
+          node-version: ${{ env.NODE_VERSION }}
+
       - name: "npm install, build, and test"
         run: |
           npm install
@@ -21,5 +30,6 @@ jobs:
       - name: "Run Azure webapp deploy action using publish profile credentials"
         uses: azure/webapps-deploy@v2
         with:
-          app-name: lily-poodle
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.azureWebAppPublishProfile }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
