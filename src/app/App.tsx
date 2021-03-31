@@ -1,8 +1,6 @@
 import React, { Suspense } from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { Spin } from "antd";
-import { MainLayout } from "../common/mainLayout/components";
-import { InitialScreen } from "../features/initial/components";
 import StrategyTable from "../features/ranking/components/StrategyTable";
 
 const App: React.FC = () => (

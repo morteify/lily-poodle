@@ -5,14 +5,13 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: "lily-poodle"
-  AZURE_WEBAPP_PACKAGE_PATH: "dist" # set this to the path to your web app project, defaults to the repository root
-  NODE_VERSION: "14" # set this to the node version to use
+  AZURE_WEBAPP_PACKAGE_PATH: "dist"
+  NODE_VERSION: "14"
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      # checkout the repo
       - name: "Checkout Github Action"
         uses: actions/checkout@master
 

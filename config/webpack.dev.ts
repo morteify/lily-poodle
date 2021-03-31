@@ -2,7 +2,7 @@ import webpack from "webpack";
 import path from "path";
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 
-const isDevelopment = process.env.NODE_ENV !== "production";
+// const isDevelopment = process.env.NODE_ENV !== "production";
 
 module.exports = {
   mode: "development",

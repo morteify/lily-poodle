@@ -14,7 +14,6 @@ export const SiteContent = styled.div`
 
 export const SiteHeader = styled(Header)`
   padding: 0;
-  background: #fff;
 `;
 
 export const ContentContainer = styled(Content)`
@@ -28,7 +27,8 @@ export const SiteFooter = styled(Footer)`
 
 export const Logo = styled.div`
   height: 32px;
-  background: rgba(255, 255, 255, 0.2);
+  width: 175px;
+  background: rgba(255, 255, 255, 0.3);
   margin: 16px;
 `;
 
@@ -53,6 +53,6 @@ export const TriggerMenuFoldOutlined = styled(MenuFoldOutlined)`
 
 export const ContentSider = styled(Sider).attrs({
   breakpoint: "lg",
-  collapsedWidth: "0",
-  trigger: null,
+  collapsible: true,
+  theme: "light",
 })``;
