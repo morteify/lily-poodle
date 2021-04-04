@@ -45,7 +45,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: "React App",
+      title: "Lily Poodle",
       template: path.resolve(__dirname, "..", "./src/index.html"),
     }),
     new ForkTsCheckerWebpackPlugin({
