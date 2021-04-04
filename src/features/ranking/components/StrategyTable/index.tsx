@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../app/types";
 import { rankingActions } from "../../slices";
 
-const StrategyTable: React.FC = () => {
+const StrategiesTable: React.FC = () => {
   const dispatch = useDispatch();
   const quotes = useSelector((state: RootState) => state.ranking.quotes);
   const isFetchingQuotes = useSelector((state: RootState) => state.ranking.isRankingFetching);
@@ -74,4 +74,4 @@ const StrategyTable: React.FC = () => {
   );
 };
 
-export default StrategyTable;
+export default StrategiesTable;
