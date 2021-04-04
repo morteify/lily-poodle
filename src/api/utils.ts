@@ -14,6 +14,6 @@ export const API_URL = "https://finnhub.io/api/v1";
 export const ajaxGetRequest = (query: string): Observable<AjaxResponse> => {
   return ajax.get(`${API_URL}/${query}/`, {
     "Content-Type": "application/json",
-    "X-Finnhub-Token": "c1kv2f237fko6in4pri0",
+    "X-Finnhub-Token": process.env.API_TOKEN ?? "",
   });
 };

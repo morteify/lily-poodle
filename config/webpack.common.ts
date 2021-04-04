@@ -2,6 +2,7 @@ import path from "path";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
+import Dotenv from "dotenv-webpack";
 
 module.exports = {
   entry: path.resolve(__dirname, "..", "./src/index.tsx"),
@@ -54,5 +55,6 @@ module.exports = {
         files: path.resolve(__dirname, "..", "./src/**/*.{ts,tsx,js,jsx}"),
       },
     }),
+    new Dotenv(),
   ],
 };

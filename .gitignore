@@ -38,3 +38,6 @@ node_modules
 # Ignore build files
 public
 dist
+
+# Ignore environmental variables
+.env
