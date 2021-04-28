@@ -29,6 +29,7 @@ module.exports = {
     hot: true,
     compress: true,
     open: true,
+    historyApiFallback: true,
   },
 
   plugins: [
