@@ -1,7 +1,6 @@
 import { ApiQuote, Quote } from "../../types";
 
 function apiMapper(apiQuote: ApiQuote): Quote {
-  console.log("apiQuote", apiQuote);
   if (apiQuote) {
     const mappedResult: Quote = {
       symbol: apiQuote["01. symbol"],

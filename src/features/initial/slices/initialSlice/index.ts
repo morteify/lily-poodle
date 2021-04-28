@@ -31,7 +31,6 @@ const initialSlice = createSlice({
       state.isRandomFactFetching = false;
     },
     fetchRandomFactFail(state, action: PayloadAction<string>): void {
-      console.log("error", action);
       state.isRandomFactFetching = false;
     },
   },
