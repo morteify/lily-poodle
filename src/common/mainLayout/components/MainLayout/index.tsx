@@ -1,14 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout, Menu } from "antd";
-import { UserOutlined, VideoCameraOutlined, UploadOutlined } from "@ant-design/icons";
+import { OrderedListOutlined, LineChartOutlined } from "@ant-design/icons";
 import { SiteContent, SiteHeader, ContentContainer, SiteFooter, Logo, SiteLayout, ContentSider } from "./styles";
+import { useHistory } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { mainLayoutActions } from "../../slices";
+import { RootState } from "../../../../app/types";
 
 const MainLayout: React.FC = ({ children }) => {
-  const [siderCollapsed, setSiderCollapsed] = useState(false);
+  const currentlySelectedKey = useSelector((state: RootState) => state.mainLayout.currentlySelectedMenuKey);
+  const isSideMenuCollapsed = useSelector((state: RootState) => state.mainLayout.isMenuCollapsed);
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const toggleSider = () => {
-    setSiderCollapsed(!siderCollapsed);
+    dispatch(mainLayoutActions.toggleMenuCollapsed());
   };
+
+  const handleMenuKeyChange = (key: string) => {
+    dispatch(mainLayoutActions.changeCurrentlySelectedMenuKey(key));
+    history.push(key);
+  };
+
+  useEffect(() => {
+    dispatch(mainLayoutActions.changeCurrentlySelectedMenuKey(history?.location.pathname));
+  }, [dispatch, history?.location.pathname]);
 
   return (
     <SiteLayout>
@@ -17,19 +33,22 @@ const MainLayout: React.FC = ({ children }) => {
       </SiteHeader>
 
       <Layout>
-        <ContentSider collapsed={siderCollapsed} onCollapse={toggleSider} data-testid="main-layout-sider">
-          <Menu theme="light" mode="inline" defaultSelectedKeys={["1"]}>
-            <Menu.Item key="1" icon={<UserOutlined />}>
-              Homepage
+        <ContentSider collapsed={isSideMenuCollapsed} onCollapse={toggleSider} data-testid="main-layout-sider">
+          <Menu
+            theme="light"
+            mode="inline"
+            defaultSelectedKeys={[currentlySelectedKey]}
+            selectedKeys={[currentlySelectedKey]}
+          >
+            <Menu.Item key="/" icon={<OrderedListOutlined />} onClick={() => handleMenuKeyChange("/")}>
+              Ranking
             </Menu.Item>
-            <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-              Reports
-            </Menu.Item>
-            <Menu.Item key="3" icon={<UploadOutlined />}>
-              Observed
-            </Menu.Item>
-            <Menu.Item key="4" icon={<UserOutlined />}>
-              Settings
+            <Menu.Item
+              key="/market-and-strategy-overview"
+              icon={<LineChartOutlined />}
+              onClick={() => handleMenuKeyChange("/market-and-strategy-overview")}
+            >
+              Market & Strategy
             </Menu.Item>
           </Menu>
         </ContentSider>

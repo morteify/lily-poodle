@@ -24,7 +24,6 @@ const rankingSlice = createSlice({
       state.isRankingFetching = false;
     },
     fetchRankingFail(state, action: PayloadAction<string>): void {
-      console.log("error", action);
       state.isRankingFetching = false;
     },
   },
