@@ -2,26 +2,29 @@ import { rankingActions } from "../slices";
 import { ActionType } from "typesafe-actions";
 
 /** RankingSlice */
-export interface GlobalQuote {
-  "Global Quote": ApiQuote;
+export interface RankingData {
+  symbol: string;
+  indicator: string;
+  resolution: number;
+  orders: Orders;
 }
 
-export interface Quote {
+export interface Orders {
+  allOrdersCount: number;
+  ordersOnPlus: number;
+  ordersOnMinus: number;
+  ordersProfitAmount: number;
+  ordersOnPlusPercentage: number;
+  ordersOnMinusPercentage: number;
+}
+
+export interface OrdersWthSymbol extends Orders {
   symbol: string;
-  open: string;
-  high: string;
-  low: string;
-  price: string;
-  volume: string;
-  latestTradingDay: string;
-  previousClose: string;
-  change: string;
-  changePercent: string;
 }
 
 export interface InitialRanking {
   isRankingFetching: boolean;
-  quotes: Quote[] | null;
+  data: RankingData[] | null;
   error: string | null;
 }
 
@@ -34,16 +37,7 @@ export type FetchRankingAction = ActionType<FetchRankingActions>;
 
 export type RankingEpicActions = ActionType<FetchRankingActions>;
 
-/** apiMapper */
-export interface ApiQuote {
-  "01. symbol": string;
-  "02. open": string;
-  "03. high": string;
-  "04. low": string;
-  "05. price": string;
-  "06. volume": string;
-  "07. latest trading day": string;
-  "08. previous close": string;
-  "09. change": string;
-  "10. change percent": string;
+export interface FetchRankingPayload {
+  resolution: string;
+  indicator: string;
 }

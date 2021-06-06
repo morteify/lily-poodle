@@ -50,14 +50,41 @@ const MarketAndStrategyOverview: React.FC = () => {
 
   useEffect(() => {
     if (overviewData && chartRef?.current) {
-      const lineSeries = chartRef.current.addCandlestickSeries();
-      const barData = overviewData.map((entry) => ({
-        open: entry.open,
-        high: entry.high,
-        low: entry.low,
-        close: entry.close,
-        time: entry.timestamp as UTCTimestamp,
-      }));
+      const markers: any[] = [];
+      const lineSeries = chartRef.current.addBarSeries({
+        thinBars: true,
+        downColor: "#ff0000",
+        upColor: "#3a9100",
+      });
+      const barData = overviewData.map((entry) => {
+        if (entry?.signal === "SELL") {
+          markers.push({
+            time: entry.timestamp as UTCTimestamp,
+            position: "belowBar",
+            color: "#ff0000",
+            shape: "arrowUp",
+            text: `SELL @ ${entry.close}`,
+          });
+        }
+
+        if (entry?.signal === "BUY") {
+          markers.push({
+            time: entry.timestamp as UTCTimestamp,
+            position: "aboveBar",
+            color: "#3a9100",
+            shape: "arrowDown",
+            text: `BUY @ ${entry.close}`,
+          });
+        }
+
+        return {
+          open: entry.open,
+          high: entry.high,
+          low: entry.low,
+          close: entry.close,
+          time: entry.timestamp as UTCTimestamp,
+        };
+      });
       const chartLine = chartRef.current.addLineSeries({
         color: "rgba(4, 111, 232, 1)",
         lineWidth: 2,
@@ -66,6 +93,7 @@ const MarketAndStrategyOverview: React.FC = () => {
         overviewData.map((entry) => ({ time: entry.timestamp as UTCTimestamp, value: entry.indicatorValue })),
       );
       lineSeries.setData(barData);
+      lineSeries.setMarkers(markers);
     }
   }, [overviewData]);
 

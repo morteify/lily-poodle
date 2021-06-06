@@ -16,6 +16,7 @@ export interface CandlesData {
   timestamp: number;
   volume: number;
   indicatorValue: number;
+  signal?: "SELL" | "BUY";
 }
 
 export interface FetchOverviewPayload {

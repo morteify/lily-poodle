@@ -1,11 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AjaxResponse } from "rxjs/ajax";
-import { ApiQuote, InitialRanking } from "../../types";
-import { apiMapper } from "../../utils";
+import { FetchRankingPayload, InitialRanking, RankingData } from "../../types";
 
 const initialState: InitialRanking = {
   isRankingFetching: false,
-  quotes: null,
+  data: null,
   error: null,
 };
 
@@ -13,18 +11,16 @@ const rankingSlice = createSlice({
   name: "ranking",
   initialState,
   reducers: {
-    fetchRankingStart(state): void {
+    fetchRankingStart(state, payload: PayloadAction<FetchRankingPayload>): void {
       state.isRankingFetching = true;
     },
-    fetchRankingDone(state, action: PayloadAction<string>) {
-      const result: AjaxResponse[] = JSON.parse(action.payload);
-      const responses: ApiQuote[] = result.map((obj) => obj.response["Global Quote"]);
-      const quotes = responses.map((response) => apiMapper(response));
-      state.quotes = quotes;
+    fetchRankingDone(state, action: PayloadAction<RankingData[]>) {
+      state.data = action.payload;
       state.isRankingFetching = false;
     },
     fetchRankingFail(state, action: PayloadAction<string>): void {
       state.isRankingFetching = false;
+      state.error = action.payload;
     },
   },
 });

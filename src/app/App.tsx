@@ -8,9 +8,13 @@ const App: React.FC = () => (
   <Suspense fallback={<Spin tip="Loading..." />}>
     <Router basename="/">
       <Switch>
-        <Route path="/market-and-strategy-overview/:symbol/:resolution/:indicator" component={MarketAndStrategyView} />
-        <Route path="/" component={StrategiesTable} />
-        <Redirect exact to="/" />
+        <Route
+          path="/market-and-strategy-overview/:symbol/:resolution/:indicator"
+          component={MarketAndStrategyView}
+          exact
+        />
+        <Route path="/strategy-view/:resolution/:indicator" component={StrategiesTable} />
+        <Redirect exact to="/strategy-view" />
       </Switch>
     </Router>
   </Suspense>

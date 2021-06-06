@@ -1,25 +1,23 @@
 import { map, mergeMap, catchError, filter } from "rxjs/operators";
 import { combineEpics, Epic } from "redux-observable";
-import { forkJoin, Observable, of } from "rxjs";
+import { Observable, of } from "rxjs";
 import { rankingActions } from "../../slices";
 import { RootState } from "../../../../app/types";
 import { isOfType } from "typesafe-actions";
-import { FetchRankingAction } from "../../types";
+import { FetchRankingAction, FetchRankingPayload } from "../../types";
 import { ajax, AjaxResponse } from "rxjs/ajax";
-
-const symbols = ["AAPL", "MSFT", "BA", "GE", "NKE", "TSLA", "SBUX"].map((symbol) =>
-  ajax.get(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=A2SQCWDLVJZ39O64`),
-);
 
 const fetchRankingEpic: Epic<FetchRankingAction, FetchRankingAction, RootState> = (action$) =>
   action$.pipe(
     filter(isOfType(rankingActions.fetchRankingStart.type)),
-    mergeMap<FetchRankingAction, Observable<FetchRankingAction>>(() =>
-      forkJoin(symbols).pipe(
-        map((value: AjaxResponse[]) => rankingActions.fetchRankingDone(JSON.stringify(value))),
+    mergeMap<FetchRankingAction, Observable<FetchRankingAction>>((action) => {
+      const { indicator, resolution } = action.payload as FetchRankingPayload;
+
+      return ajax.get(`http://localhost:8000/strategy-view/${resolution}/${indicator}`).pipe(
+        map((value: AjaxResponse) => rankingActions.fetchRankingDone(value.response.data)),
         catchError((error) => of(rankingActions.fetchRankingFail(error))),
-      ),
-    ),
+      );
+    }),
   );
 
 export const rankingEpic = combineEpics(fetchRankingEpic);
