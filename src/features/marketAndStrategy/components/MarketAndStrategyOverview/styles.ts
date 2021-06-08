@@ -11,22 +11,25 @@ export const SectionTitleContainer = styled.div`
 
 export const SymbolTitle = styled(SectionTitleComponent)`
   color: #000;
+  margin-bottom: 0;
 `;
 
 export const XSymbol = styled(SectionTitleComponent)`
   color: #ccc;
   margin-left: 0.25em;
   margin-right: 0.25em;
+  margin-bottom: 0;
 `;
 
 export const IndicatorTitle = styled(SectionTitleComponent)`
   color: #2d9cdb;
+  margin-bottom: 0;
 `;
 
 export const HelperSubtitle = styled.p`
   font-size: 1rem;
   font-weight: 200;
-  margin-bottom: 0.15em;
+  margin-bottom: 0em;
   color: #898c8f;
 `;
 

@@ -1,14 +1,13 @@
 import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { MainLayout } from "../../../../common/mainLayout/components";
 import { createChart, CrosshairMode, IChartApi, UTCTimestamp } from "lightweight-charts";
-import { data } from "./data";
 import ResizeObserver from "resize-observer-polyfill";
 import { SymbolTitle, IndicatorTitle, XSymbol, SectionTitleContainer, HelperSubtitle, ChartContent } from "./styles";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { marketAndStrategyOverviewActions } from "../../slices";
 import { FetchOverviewPayload } from "../../types";
-import { Spin } from "antd";
+import { Spin, PageHeader } from "antd";
 import { RootState } from "../../../../app/types";
 
 const MarketAndStrategyOverview: React.FC = () => {
@@ -46,6 +45,10 @@ const MarketAndStrategyOverview: React.FC = () => {
         },
       });
     }
+
+    return () => {
+      chartRef.current = null;
+    };
   }, []);
 
   useEffect(() => {
@@ -101,12 +104,18 @@ const MarketAndStrategyOverview: React.FC = () => {
     <Spin tip="Fetching data" spinning={isOverviewFetching}>
       <MainLayout>
         <div>
-          <HelperSubtitle>Selected market and strategy</HelperSubtitle>
-          <SectionTitleContainer>
-            <SymbolTitle>{symbol ?? "N/A"} </SymbolTitle>
-            <XSymbol>x</XSymbol>
-            <IndicatorTitle>{indicator ?? "N/A"}</IndicatorTitle>
-          </SectionTitleContainer>
+          <PageHeader
+            ghost={false}
+            onBack={() => window.history.back()}
+            title={
+              <SectionTitleContainer>
+                <SymbolTitle>{symbol ?? "N/A"} </SymbolTitle>
+                <XSymbol>x</XSymbol>
+                <IndicatorTitle>{indicator ?? "N/A"}</IndicatorTitle>
+              </SectionTitleContainer>
+            }
+            subTitle={<HelperSubtitle>Selected market and strategy</HelperSubtitle>}
+          />
         </div>
         <ChartContent ref={mainLayoutRef} />
       </MainLayout>

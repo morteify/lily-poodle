@@ -13,7 +13,7 @@ const App: React.FC = () => (
           component={MarketAndStrategyView}
           exact
         />
-        <Route path="/strategy-view/:resolution/:indicator" component={StrategiesTable} />
+        <Route path="/strategy-view/:resolution?/:indicator?" component={StrategiesTable} />
         <Redirect exact to="/strategy-view" />
       </Switch>
     </Router>

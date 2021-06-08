@@ -22,7 +22,12 @@ export interface OrdersWthSymbol extends Orders {
   symbol: string;
 }
 
+export type Resolution = 5 | 15 | 30 | 60;
+export type Indicator = "apo" | "aroon" | "ema" | "mom" | "rocr" | "rsi" | "sma" | "stochrsi" | "t3" | "willr";
+
 export interface InitialRanking {
+  resolution: Resolution;
+  indicator: Indicator;
   isRankingFetching: boolean;
   data: RankingData[] | null;
   error: string | null;

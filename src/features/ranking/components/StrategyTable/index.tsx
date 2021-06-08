@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../app/types";
 import { rankingActions } from "../../slices";
 import { useHistory, useParams } from "react-router-dom";
-import { FetchRankingPayload, OrdersWthSymbol } from "../../types";
+import { FetchRankingPayload, Indicator, OrdersWthSymbol, Resolution } from "../../types";
 
 const StrategiesTable: React.FC = () => {
   const dispatch = useDispatch();
@@ -17,11 +17,24 @@ const StrategiesTable: React.FC = () => {
     state.ranking.data?.map((item) => ({ symbol: item.symbol, ...item.orders })),
   );
   const isRankingFetching = useSelector((state: RootState) => state.ranking.isRankingFetching);
-  const [selectedIndicator, setSelectedIndicator] = useState("apo");
-  const [selectedResolution, setSelectedResolution] = useState(5);
+
+  const selectedIndicator = useSelector((state: RootState) => state.ranking.indicator);
+  const selectedResolution = useSelector((state: RootState) => state.ranking.resolution);
 
   useEffect(() => {
-    dispatch(rankingActions.fetchRankingStart({ indicator, resolution }));
+    dispatch(
+      rankingActions.fetchRankingStart({ indicator: selectedIndicator, resolution: selectedResolution.toString() }),
+    );
+  }, [dispatch, selectedIndicator, selectedResolution]);
+
+  useEffect(() => {
+    if (indicator !== undefined) {
+      dispatch(rankingActions.updateParameter({ parameter: "indicator", value: indicator as Indicator }));
+    }
+    if (resolution !== undefined)
+      dispatch(
+        rankingActions.updateParameter({ parameter: "resolution", value: (resolution as unknown) as Resolution }),
+      );
   }, [dispatch, indicator, resolution]);
 
   const columns = [
@@ -29,36 +42,57 @@ const StrategiesTable: React.FC = () => {
       title: "Symbol",
       dataIndex: "symbol",
       key: "symbol",
+      sorter: {
+        compare: (a: OrdersWthSymbol, b: OrdersWthSymbol) => a.symbol.localeCompare(b.symbol),
+      },
     },
     {
       title: "Orders count",
       dataIndex: "allOrdersCount",
       key: "allOrdersCount",
+      sorter: {
+        compare: (a: OrdersWthSymbol, b: OrdersWthSymbol) => a.allOrdersCount - b.allOrdersCount,
+      },
     },
     {
       title: "Orders on plus",
       dataIndex: "ordersOnPlus",
       key: "ordersOnPlus",
+      sorter: {
+        compare: (a: OrdersWthSymbol, b: OrdersWthSymbol) => a.ordersOnPlus - b.ordersOnPlus,
+      },
     },
     {
       title: "Orders on minus",
       dataIndex: "ordersOnMinus",
       key: "ordersOnMinus",
+      sorter: {
+        compare: (a: OrdersWthSymbol, b: OrdersWthSymbol) => a.ordersOnMinus - b.ordersOnMinus,
+      },
     },
     {
       title: "Profit",
       key: "ordersProfitAmount",
       dataIndex: "ordersProfitAmount",
+      sorter: {
+        compare: (a: OrdersWthSymbol, b: OrdersWthSymbol) => a.ordersProfitAmount - b.ordersProfitAmount,
+      },
     },
     {
       title: "Orders on plus %",
       key: "ordersOnPlusPercentage",
       dataIndex: "ordersOnPlusPercentage",
+      sorter: {
+        compare: (a: OrdersWthSymbol, b: OrdersWthSymbol) => a.ordersOnPlusPercentage - b.ordersOnPlusPercentage,
+      },
     },
     {
       title: "Orders on minus %",
       key: "ordersOnMinusPercentage",
       dataIndex: "ordersOnMinusPercentage",
+      sorter: {
+        compare: (a: OrdersWthSymbol, b: OrdersWthSymbol) => a.ordersOnMinusPercentage - b.ordersOnMinusPercentage,
+      },
     },
     {
       title: "Action",
@@ -67,7 +101,7 @@ const StrategiesTable: React.FC = () => {
         <div>
           <a
             onClick={() => {
-              history.push(`/market-and-strategy-overview/${record.symbol}/${resolution}/${indicator}`);
+              history.push(`/market-and-strategy-overview/${record.symbol}/${selectedResolution}/${selectedIndicator}`);
             }}
           >
             Overview
@@ -78,13 +112,11 @@ const StrategiesTable: React.FC = () => {
   ];
 
   const handleResolutionMenu = (event: any) => {
-    console.log("reoslutionClick", event);
-    setSelectedResolution(event.key);
+    dispatch(rankingActions.updateParameter({ parameter: "resolution", value: event.key }));
   };
 
   const handleIndicatorMenu = (event: any) => {
-    console.log("reoslutionClick", event);
-    setSelectedIndicator(event.key);
+    dispatch(rankingActions.updateParameter({ parameter: "indicator", value: event.key }));
   };
 
   const resolutionMenu = (
@@ -114,14 +146,17 @@ const StrategiesTable: React.FC = () => {
   return (
     <MainLayout>
       <Space style={{ marginBottom: 16 }}>
-        <Dropdown overlay={resolutionMenu}>
+        <Dropdown overlay={resolutionMenu} trigger={["click"]}>
           <Button>
-            Resolution: <span style={{ color: "#1890ff" }}> {selectedResolution}</span> <DownOutlined />
+            Resolution: &nbsp;
+            <span style={{ color: "#1890ff" }}> {selectedResolution}</span>
+            <DownOutlined />
           </Button>
         </Dropdown>
-        <Dropdown overlay={indicatorMenu}>
+        <Dropdown overlay={indicatorMenu} trigger={["click"]}>
           <Button>
-            Indicator: <span style={{ color: "#1890ff" }}> {selectedIndicator}</span>
+            Indicator: &nbsp;
+            <span style={{ color: "#1890ff" }}> {selectedIndicator}</span>
             <DownOutlined />
           </Button>
         </Dropdown>
