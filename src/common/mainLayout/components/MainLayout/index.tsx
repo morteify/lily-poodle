@@ -40,16 +40,16 @@ const MainLayout: React.FC = ({ children }) => {
             defaultSelectedKeys={[currentlySelectedKey]}
             selectedKeys={[currentlySelectedKey]}
           >
-            <Menu.Item key="/" icon={<OrderedListOutlined />} onClick={() => handleMenuKeyChange("/")}>
+            <Menu.Item key="/strategy-view" icon={<OrderedListOutlined />} onClick={() => handleMenuKeyChange("/")}>
               Ranking
             </Menu.Item>
-            <Menu.Item
+            {/* <Menu.Item
               key="/market-and-strategy-overview"
               icon={<LineChartOutlined />}
               onClick={() => handleMenuKeyChange("/market-and-strategy-overview")}
             >
               Market & Strategy
-            </Menu.Item>
+            </Menu.Item> */}
           </Menu>
         </ContentSider>
         <Layout>

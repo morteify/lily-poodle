@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { useEffect, useState } from "react";
-import { Table, Space, Button, Dropdown, Menu } from "antd";
+import { Table, Space, Button, Dropdown, Menu, PageHeader } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { MainLayout } from "../../../../common/mainLayout/components";
 import { useDispatch, useSelector } from "react-redux";
@@ -145,24 +145,26 @@ const StrategiesTable: React.FC = () => {
 
   return (
     <MainLayout>
-      <Space style={{ marginBottom: 16 }}>
-        <Dropdown overlay={resolutionMenu} trigger={["click"]}>
-          <Button>
-            Resolution: &nbsp;
-            <span style={{ color: "#1890ff" }}> {selectedResolution}</span>
-            <DownOutlined />
-          </Button>
-        </Dropdown>
-        <Dropdown overlay={indicatorMenu} trigger={["click"]}>
-          <Button>
-            Indicator: &nbsp;
-            <span style={{ color: "#1890ff" }}> {selectedIndicator}</span>
-            <DownOutlined />
-          </Button>
-        </Dropdown>
-        <Button>Clear filters</Button>
-        <Button>Clear filters and sorters</Button>
-      </Space>
+      <PageHeader
+        ghost={false}
+        title="Ranking"
+        extra={[
+          <Dropdown key="1" overlay={indicatorMenu} trigger={["click"]}>
+            <Button>
+              Indicator: &nbsp;
+              <span style={{ color: "#1890ff" }}> {selectedIndicator}</span>
+              <DownOutlined />
+            </Button>
+          </Dropdown>,
+          <Dropdown key="2" overlay={resolutionMenu} trigger={["click"]}>
+            <Button>
+              Resolution: &nbsp;
+              <span style={{ color: "#1890ff" }}> {selectedResolution}</span>
+              <DownOutlined />
+            </Button>
+          </Dropdown>,
+        ]}
+      />
       <Table
         bordered
         pagination={false}

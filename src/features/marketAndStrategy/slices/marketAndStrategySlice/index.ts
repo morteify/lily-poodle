@@ -24,6 +24,7 @@ const marketAndStrategySlice = createSlice({
       state.isOverviewFetching = false;
       state.error = action.payload;
     },
+    clear: () => initialState,
   },
 });
 

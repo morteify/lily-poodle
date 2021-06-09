@@ -48,8 +48,9 @@ const MarketAndStrategyOverview: React.FC = () => {
 
     return () => {
       chartRef.current = null;
+      dispatch(marketAndStrategyOverviewActions.clear());
     };
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (overviewData && chartRef?.current) {
@@ -95,8 +96,10 @@ const MarketAndStrategyOverview: React.FC = () => {
       chartLine.setData(
         overviewData.map((entry) => ({ time: entry.timestamp as UTCTimestamp, value: entry.indicatorValue })),
       );
+
       lineSeries.setData(barData);
       lineSeries.setMarkers(markers);
+      chartRef.current.timeScale().fitContent();
     }
   }, [overviewData]);
 

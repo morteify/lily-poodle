@@ -3,7 +3,7 @@ import { InitialMainLayout } from "../../types";
 
 const initialState: InitialMainLayout = {
   isMenuCollapsed: false,
-  currentlySelectedMenuKey: "/",
+  currentlySelectedMenuKey: "/strategy-view",
 };
 
 const mainLayoutSlice = createSlice({
