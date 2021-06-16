@@ -12,10 +12,12 @@ const fetchMarketAndStrategyOverviewEpic: Epic<FetchOverviewAction, FetchOvervie
     filter(isOfType(marketAndStrategyOverviewActions.fetchOverview.type)),
     mergeMap((action) => {
       const { symbol, resolution, indicator } = action.payload as FetchOverviewPayload;
-      return ajax.get(`http://localhost:8000/candles-with-indicator/${symbol}/${resolution}/${indicator}`).pipe(
-        map((value: AjaxResponse) => marketAndStrategyOverviewActions.fetchOverviewDone(value.response)),
-        catchError((error) => of(marketAndStrategyOverviewActions.fetchOverviewFail(error))),
-      );
+      return ajax
+        .get(`http://lily-poodle-service.azurewebsites.net/candles-with-indicator/${symbol}/${resolution}/${indicator}`)
+        .pipe(
+          map((value: AjaxResponse) => marketAndStrategyOverviewActions.fetchOverviewDone(value.response)),
+          catchError((error) => of(marketAndStrategyOverviewActions.fetchOverviewFail(error))),
+        );
     }),
   );
 
