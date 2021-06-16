@@ -49,6 +49,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "Lily Poodle",
       template: path.resolve(__dirname, "..", "./src/index.html"),
+      favicon: path.resolve(__dirname, "..", "./src/assets/images/lily-poodle-icon.png"),
     }),
     new ForkTsCheckerWebpackPlugin({
       async: false,
