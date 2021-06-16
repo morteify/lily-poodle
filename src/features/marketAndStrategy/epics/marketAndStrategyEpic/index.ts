@@ -13,7 +13,9 @@ const fetchMarketAndStrategyOverviewEpic: Epic<FetchOverviewAction, FetchOvervie
     mergeMap((action) => {
       const { symbol, resolution, indicator } = action.payload as FetchOverviewPayload;
       return ajax
-        .get(`http://lily-poodle-service.azurewebsites.net/candles-with-indicator/${symbol}/${resolution}/${indicator}`)
+        .get(
+          `https://lily-poodle-service.azurewebsites.net/candles-with-indicator/${symbol}/${resolution}/${indicator}`,
+        )
         .pipe(
           map((value: AjaxResponse) => marketAndStrategyOverviewActions.fetchOverviewDone(value.response)),
           catchError((error) => of(marketAndStrategyOverviewActions.fetchOverviewFail(error))),

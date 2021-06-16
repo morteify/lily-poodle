@@ -13,7 +13,7 @@ const fetchRankingEpic: Epic<FetchRankingAction, FetchRankingAction, RootState> 
     mergeMap<FetchRankingAction, Observable<FetchRankingAction>>((action) => {
       const { indicator, resolution } = action.payload as FetchRankingPayload;
 
-      return ajax.get(`http://lily-poodle-service.azurewebsites.net/strategy-view/${resolution}/${indicator}`).pipe(
+      return ajax.get(`https://lily-poodle-service.azurewebsites.net/strategy-view/${resolution}/${indicator}`).pipe(
         map((value: AjaxResponse) => rankingActions.fetchRankingDone(value.response.data)),
         catchError((error) => of(rankingActions.fetchRankingFail(error))),
       );
