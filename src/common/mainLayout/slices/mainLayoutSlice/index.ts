@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { InitialMainLayout } from "../../types";
 
 const initialState: InitialMainLayout = {
-  isMenuCollapsed: false,
+  isMenuCollapsed: true,
   currentlySelectedMenuKey: "/strategy-view",
 };
 

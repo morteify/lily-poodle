@@ -53,6 +53,6 @@ export const TriggerMenuFoldOutlined = styled(MenuFoldOutlined)`
 
 export const ContentSider = styled(Sider).attrs({
   breakpoint: "lg",
-  collapsible: true,
+  collapsible: false,
   theme: "light",
 })``;

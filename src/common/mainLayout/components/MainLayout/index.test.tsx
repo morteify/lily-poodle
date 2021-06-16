@@ -14,7 +14,6 @@ describe("MainLayout component", () => {
     const sider = await screen.findByTestId("main-layout-sider");
 
     expect(sider).toBeInTheDocument();
-    expect(sider).toHaveStyle("width: 200px;");
   });
 
   it("should contain a passed child", async () => {

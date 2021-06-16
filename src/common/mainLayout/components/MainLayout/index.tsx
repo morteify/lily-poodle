@@ -33,7 +33,7 @@ const MainLayout: React.FC = ({ children }) => {
       </SiteHeader>
 
       <Layout>
-        <ContentSider collapsed={isSideMenuCollapsed} onCollapse={toggleSider} data-testid="main-layout-sider">
+        <ContentSider collapsed={true} onCollapse={toggleSider} data-testid="main-layout-sider">
           <Menu
             theme="light"
             mode="inline"
